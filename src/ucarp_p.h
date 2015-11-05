@@ -1,7 +1,7 @@
 #ifndef __CARP_P_H__
 #define __CARP_P_H__ 1
 
-static const char *GETOPT_OPTIONS = "i:s:v:p:Pa:hb:k:x:nu:d:Dr:zf:Bo:SM";
+static const char *GETOPT_OPTIONS = "i:s:v:p:Pa:hb:k:x:nu:d:Dr:zf:Bo:SMZ:";
 
 static struct option long_options[] = {
     { "pidfile", 1, NULL, 'Z' },
