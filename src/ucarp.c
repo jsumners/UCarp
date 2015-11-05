@@ -45,6 +45,7 @@ static void usage(void)
         "--nomcast (-M): use broadcast (instead of multicast) advertisements\n"
         "--facility=<facility> (-f): set syslog facility (default=daemon)\n"
         "--xparam=<value> (-x): extra parameter to send to up/down scripts\n"       
+	"--pidfile (-Z): file to write process's pid to\n"
         "\n"
         "Sample usage:\n"
         "\n"
@@ -256,6 +257,13 @@ int main(int argc, char *argv[])
             no_mcast = 1;
             break;
         }
+	case 'Z': {
+	    free(pidfile);
+	    if ((pidfile = strdup(optarg)) == NULL) {
+		die_mem();
+	    }
+	    break;
+	}
         default: {
             usage();
         }

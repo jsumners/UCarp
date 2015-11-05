@@ -43,6 +43,8 @@
 #include "spawn.h"
 #include "log.h"
 #include "carp_p.h"
+#include <sys/types.h>
+#include <unistd.h>
 
 #ifdef WITH_DMALLOC
 # include <dmalloc.h>
@@ -808,6 +810,17 @@ int docarp(void)
     }
     strncpy(iface.ifr_name, interface, sizeof iface.ifr_name);
 #endif    
+    if (pidfile != NULL) {
+	pid_t pid = getpid();
+	FILE *_pidfile = fopen(pidfile, "w");
+	if (_pidfile != NULL) {
+	    char *buf = malloc(100 * sizeof (long));
+	    snprintf(buf, 100, "%ld", (long) pid);
+	    fputs(buf, _pidfile);
+	    free(buf);
+	    fclose(_pidfile);
+	}
+    }
     for (;;) {
 #ifdef SIOCGIFFLAGS
         if (ioctl(fd, SIOCGIFFLAGS, &iface) != 0) {

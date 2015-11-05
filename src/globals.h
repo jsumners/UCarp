@@ -9,6 +9,7 @@
 # define GLOBAL(A, B) extern A
 #endif
 
+GLOBAL0(char *pidfile);
 GLOBAL0(char *interface);
 GLOBAL0(struct in_addr srcip);
 GLOBAL0(struct in_addr mcastip);

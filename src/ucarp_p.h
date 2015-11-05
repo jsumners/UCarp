@@ -4,6 +4,7 @@
 static const char *GETOPT_OPTIONS = "i:s:v:p:Pa:hb:k:x:nu:d:Dr:zf:Bo:SM";
 
 static struct option long_options[] = {
+    { "pidfile", 1, NULL, 'Z' },
     { "interface", 1, NULL, 'i' },
     { "srcip", 1, NULL, 's' },
     { "mcastip", 1, NULL, 'm' },
