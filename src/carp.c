@@ -871,6 +871,9 @@ int docarp(void)
                 if (sc.sc_state != BACKUP) {
                     (void) spawn_handler(dev_desc_fd, downscript);
                 }
+		if (pidfile != NULL) {
+		    unlink(pidfile);
+		}
                 _exit(EXIT_SUCCESS);
                 break;                
             }
