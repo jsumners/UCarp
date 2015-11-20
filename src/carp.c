@@ -811,15 +811,15 @@ int docarp(void)
     strncpy(iface.ifr_name, interface, sizeof iface.ifr_name);
 #endif    
     if (pidfile != NULL) {
-	pid_t pid = getpid();
-	FILE *_pidfile = fopen(pidfile, "w");
-	if (_pidfile != NULL) {
-	    char *buf = malloc(100 * sizeof (long));
-	    snprintf(buf, 100, "%ld", (long) pid);
-	    fputs(buf, _pidfile);
-	    free(buf);
-	    fclose(_pidfile);
-	}
+        pid_t pid = getpid();
+        FILE *_pidfile = fopen(pidfile, "w");
+        if (_pidfile != NULL) {
+            fprintf(_pidfile, "%d", pid);
+            fclose(_pidfile);
+        } else {
+            logfile(LOG_ERR, "Could not open pidfile. Error = %s (%d)",
+                    strerror(errno), errno);
+        }
     }
     for (;;) {
 #ifdef SIOCGIFFLAGS
@@ -871,9 +871,9 @@ int docarp(void)
                 if (sc.sc_state != BACKUP) {
                     (void) spawn_handler(dev_desc_fd, downscript);
                 }
-		if (pidfile != NULL) {
-		    unlink(pidfile);
-		}
+                if (pidfile != NULL) {
+                    unlink(pidfile);
+                }
                 _exit(EXIT_SUCCESS);
                 break;                
             }
